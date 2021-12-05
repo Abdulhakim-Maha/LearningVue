@@ -9,6 +9,7 @@
       :to="item.to"
       >{{ item.title }}</router-link
     >
+    <button @click="$emit('toggle-login-open')" class="mx-2">Login</button>
   </nav>
 </template>
 
