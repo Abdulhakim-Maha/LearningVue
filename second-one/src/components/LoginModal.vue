@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import firebase from '../utilities/firebase'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 export default {
   name: "LoginModal",
   data() {
@@ -54,8 +56,20 @@ export default {
   emits: ["toggle-login"],
   methods: {
     submitHandler() {
-		console.log(this.email,this.password)
-	},
+      const auth = getAuth(firebase);
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
+          // Signed in
+          // const user = userCredential.user;
+          console.log(userCredential.user);
+          // ...
+        })
+        .catch((error) => {
+          console.log(error);
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+        });
+    },
   },
 };
 </script>
