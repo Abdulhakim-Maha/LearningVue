@@ -49,8 +49,9 @@ export default {
   name: "LoginModal",
   data() {
     return {
-      email: "",
-      password: "",
+      email: "austin@gmail.com",
+      password: "000000",
+
     };
   },
   emits: ["toggle-login"],
