@@ -32,7 +32,8 @@
                 type="submit"
                 class="w-full rounded shadow-md p-2 bg-blue-400"
               >
-                Login
+                <span v-if="!isLoading">Login</span>
+                <span v-else>Loading</span>
               </button>
             </div>
           </form>
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import firebase from '../utilities/firebase'
+import firebase from "../utilities/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 export default {
   name: "LoginModal",
@@ -51,23 +52,28 @@ export default {
     return {
       email: "austin@gmail.com",
       password: "000000",
-
+      isLoading: false,
     };
   },
   emits: ["toggle-login"],
   methods: {
     submitHandler() {
+      this.isLoading = true;
       const auth = getAuth(firebase);
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in
           // const user = userCredential.user;
           console.log(userCredential.user);
+          this.email = "";
+          this.password = "";
+          this.isLoading = false;
           // ...
         })
         .catch((error) => {
           console.log(error);
           // const errorCode = error.code;
+          this.isLoading = false;
           // const errorMessage = error.message;
         });
     },
