@@ -13,6 +13,7 @@
               <label>Email or Username </label>
               <input
                 v-model="email"
+                ref="emailRef"
                 type="email"
                 placeholder="Enter your email or username."
                 class="rounded shadow p-2 w-full"
@@ -54,6 +55,9 @@ export default {
       password: "000000",
       isLoading: false,
     };
+  },
+  mounted() {
+    this.$refs.emailRef.focus();
   },
   emits: ["toggle-login"],
   methods: {

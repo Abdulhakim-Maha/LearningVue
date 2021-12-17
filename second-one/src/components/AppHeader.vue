@@ -9,16 +9,19 @@
       :to="item.to"
       >{{ item.title }}</router-link
     >
-    <button @click="$emit('toggle-login-open')" class="mx-2">Login</button>
-    <button @click="logout" class="mx-2">Logout</button>
+    <button v-if="isLoggedIn" @click="logout" class="mx-2">Logout</button>
+    <button v-else @click="$emit('toggle-login-open')" class="mx-2">Login</button>
   </nav>
 </template>
 
 <script>
-import { getAuth,signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import firebase from "../utilities/firebase";
 export default {
   name: "AppHeader",
+  props: {
+    isLoggedIn: Boolean,
+  },
   data() {
     return {
       list: [
@@ -37,7 +40,7 @@ export default {
           // Sign-out successful.
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
           // An error happened.
         });
     },
